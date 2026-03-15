@@ -6,8 +6,8 @@ import "~~/styles/globals.css";
 import { getMetadata } from "~~/utils/helper/getMetadata";
 
 export const metadata = getMetadata({
-  title: "Zama Template",
-  description: "Built with FHEVM",
+  title: "ConfidentialPay - Encrypted Onchain Payroll",
+  description: "Confidential onchain payroll system powered by Zama FHE. Salaries are encrypted end-to-end.",
 });
 
 const DappWrapper = ({ children }: { children: React.ReactNode }) => {
@@ -21,7 +21,7 @@ const DappWrapper = ({ children }: { children: React.ReactNode }) => {
       </head>
       <body suppressHydrationWarning>
         <Script src="https://cdn.zama.org/relayer-sdk-js/0.4.1/relayer-sdk-js.umd.cjs" strategy="beforeInteractive" />
-        <ThemeProvider enableSystem>
+        <ThemeProvider defaultTheme="light" forcedTheme="light">
           <DappWrapperWithProviders>{children}</DappWrapperWithProviders>
         </ThemeProvider>
       </body>
