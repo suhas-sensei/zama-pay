@@ -444,6 +444,10 @@ export const useConfidentialPayroll = (parameters: {
     mintTokens,
     approvePayrollOperator,
 
+    // Signer (for auxiliary contract calls)
+    ethersSigner,
+    ethersReadonlyProvider,
+
     // Status
     message,
     isProcessing,

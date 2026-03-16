@@ -108,4 +108,9 @@ contract ConfidentialPayrollToken is ZamaEthereumConfig {
 
         emit Transfer(from, to);
     }
+
+    /// @notice Transfer ownership of the token contract
+    function transferOwnership(address _newOwner) external onlyOwner {
+        owner = _newOwner;
+    }
 }

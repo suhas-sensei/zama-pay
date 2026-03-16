@@ -1,13 +1,34 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { ethers } from "ethers";
+import { RoleManagement } from "./RoleManagement";
+import { PayrollSchedulerPanel } from "./PayrollSchedulerPanel";
+import { AnalyticsDashboard } from "./AnalyticsDashboard";
 
 interface EmployerDashboardProps {
-  payroll: any; // from useConfidentialPayroll
+  payroll: any;
+  accessControlAddress?: string;
+  accessControlAbi?: any[];
+  schedulerAddress?: string;
+  schedulerAbi?: any[];
+  analyticsAddress?: string;
+  analyticsAbi?: any[];
+  payrollAddress?: string;
+  payrollAbi?: any[];
 }
 
-export const EmployerDashboard = ({ payroll }: EmployerDashboardProps) => {
+export const EmployerDashboard = ({
+  payroll,
+  accessControlAddress,
+  accessControlAbi,
+  schedulerAddress,
+  schedulerAbi,
+  analyticsAddress,
+  analyticsAbi,
+  payrollAddress,
+  payrollAbi,
+}: EmployerDashboardProps) => {
   const [newEmployeeAddress, setNewEmployeeAddress] = useState("");
   const [newEmployeeSalary, setNewEmployeeSalary] = useState("");
   const [updateAddress, setUpdateAddress] = useState("");
@@ -15,6 +36,9 @@ export const EmployerDashboard = ({ payroll }: EmployerDashboardProps) => {
   const [mintTo, setMintTo] = useState("");
   const [mintAmount, setMintAmount] = useState("");
   const [removeAddr, setRemoveAddr] = useState("");
+  const [pendingReimbursements, setPendingReimbursements] = useState<any[]>([]);
+  const [reimbMessage, setReimbMessage] = useState("");
+  const [reimbLoading, setReimbLoading] = useState(false);
 
   // Decrypted values
   const decryptedBudget = payroll.totalBudgetHandle && payroll.totalBudgetHandle !== ethers.ZeroHash
@@ -28,6 +52,48 @@ export const EmployerDashboard = ({ payroll }: EmployerDashboardProps) => {
   const formatAmount = (val: bigint | undefined) => {
     if (val === undefined) return "Encrypted";
     return `${(Number(val) / 1_000_000).toFixed(2)} cUSDT`;
+  };
+
+  const fetchReimbursements = useCallback(async () => {
+    if (!payrollAddress || !payrollAbi) return;
+    try {
+      if (!payroll.ethersReadonlyProvider) return;
+      const contract = new ethers.Contract(payrollAddress, payrollAbi, payroll.ethersReadonlyProvider);
+      if (!contract.getPendingReimbursements) return;
+      const pending = await contract.getPendingReimbursements();
+      const reqs = [];
+      for (const item of pending) {
+        reqs.push({
+          employee: item.employee ?? item[0],
+          index: Number(item.index ?? item[1]),
+          description: item.description ?? item[2],
+          timestamp: new Date(Number(item.timestamp ?? item[3]) * 1000).toLocaleString(),
+        });
+      }
+      setPendingReimbursements(reqs);
+    } catch {}
+  }, [payrollAddress, payrollAbi]);
+
+  useEffect(() => { fetchReimbursements(); }, [fetchReimbursements]);
+
+  const handleReimbursement = async (employee: string, index: number, approve: boolean) => {
+    if (!payrollAddress || !payrollAbi) return;
+    setReimbLoading(true);
+    setReimbMessage(approve ? "Approving..." : "Rejecting...");
+    try {
+      if (!payroll.ethersSigner) return;
+      const contract = new ethers.Contract(payrollAddress, payrollAbi, payroll.ethersSigner);
+      const tx = approve
+        ? await contract.approveReimbursement(employee, index)
+        : await contract.rejectReimbursement(employee, index);
+      await tx.wait();
+      setReimbMessage(approve ? "Reimbursement approved!" : "Reimbursement rejected.");
+      fetchReimbursements();
+    } catch (e) {
+      setReimbMessage(`Failed: ${e instanceof Error ? e.message : String(e)}`);
+    } finally {
+      setReimbLoading(false);
+    }
   };
 
   return (
@@ -100,19 +166,19 @@ export const EmployerDashboard = ({ payroll }: EmployerDashboardProps) => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Add Employee */}
         <div className="bg-white border border-gray-200 p-6">
-          <h3 className="text-lg font-bold mb-4">Add Employee</h3>
+          <h3 className="text-lg font-bold mb-4 text-gray-900">Add Employee</h3>
           <div className="space-y-3">
             <input
               type="text"
               placeholder="Employee address (0x...)"
-              className="w-full border border-gray-300 p-3 text-sm font-mono"
+              className="w-full border border-gray-300 p-3 text-sm font-mono text-gray-900 bg-white"
               value={newEmployeeAddress}
               onChange={e => setNewEmployeeAddress(e.target.value)}
             />
             <input
               type="number"
               placeholder="Monthly salary (cUSDT, e.g. 5000)"
-              className="w-full border border-gray-300 p-3 text-sm"
+              className="w-full border border-gray-300 p-3 text-sm text-gray-900 bg-white"
               value={newEmployeeSalary}
               onChange={e => setNewEmployeeSalary(e.target.value)}
             />
@@ -133,19 +199,19 @@ export const EmployerDashboard = ({ payroll }: EmployerDashboardProps) => {
 
         {/* Mint Tokens */}
         <div className="bg-white border border-gray-200 p-6">
-          <h3 className="text-lg font-bold mb-4">Mint cUSDT</h3>
+          <h3 className="text-lg font-bold mb-4 text-gray-900">Mint cUSDT</h3>
           <div className="space-y-3">
             <input
               type="text"
               placeholder="Recipient address (0x...)"
-              className="w-full border border-gray-300 p-3 text-sm font-mono"
+              className="w-full border border-gray-300 p-3 text-sm font-mono text-gray-900 bg-white"
               value={mintTo}
               onChange={e => setMintTo(e.target.value)}
             />
             <input
               type="number"
               placeholder="Amount (e.g. 100000)"
-              className="w-full border border-gray-300 p-3 text-sm"
+              className="w-full border border-gray-300 p-3 text-sm text-gray-900 bg-white"
               value={mintAmount}
               onChange={e => setMintAmount(e.target.value)}
             />
@@ -166,19 +232,19 @@ export const EmployerDashboard = ({ payroll }: EmployerDashboardProps) => {
 
         {/* Update Salary */}
         <div className="bg-white border border-gray-200 p-6">
-          <h3 className="text-lg font-bold mb-4">Update Salary</h3>
+          <h3 className="text-lg font-bold mb-4 text-gray-900">Update Salary</h3>
           <div className="space-y-3">
             <input
               type="text"
               placeholder="Employee address (0x...)"
-              className="w-full border border-gray-300 p-3 text-sm font-mono"
+              className="w-full border border-gray-300 p-3 text-sm font-mono text-gray-900 bg-white"
               value={updateAddress}
               onChange={e => setUpdateAddress(e.target.value)}
             />
             <input
               type="number"
               placeholder="New monthly salary (cUSDT)"
-              className="w-full border border-gray-300 p-3 text-sm"
+              className="w-full border border-gray-300 p-3 text-sm text-gray-900 bg-white"
               value={updateSalaryValue}
               onChange={e => setUpdateSalaryValue(e.target.value)}
             />
@@ -199,10 +265,10 @@ export const EmployerDashboard = ({ payroll }: EmployerDashboardProps) => {
 
         {/* Remove Employee */}
         <div className="bg-white border border-gray-200 p-6">
-          <h3 className="text-lg font-bold mb-4">Remove Employee</h3>
+          <h3 className="text-lg font-bold mb-4 text-gray-900">Remove Employee</h3>
           <div className="space-y-3">
             <select
-              className="w-full border border-gray-300 p-3 text-sm"
+              className="w-full border border-gray-300 p-3 text-sm text-gray-900 bg-white"
               value={removeAddr}
               onChange={e => setRemoveAddr(e.target.value)}
             >
@@ -229,7 +295,7 @@ export const EmployerDashboard = ({ payroll }: EmployerDashboardProps) => {
 
       {/* Employee List */}
       <div className="bg-white border border-gray-200 p-6">
-        <h3 className="text-lg font-bold mb-4">Active Employees</h3>
+        <h3 className="text-lg font-bold mb-4 text-gray-900">Active Employees</h3>
         {payroll.employeeAddresses.length === 0 ? (
           <p className="text-gray-500">No employees added yet.</p>
         ) : (
@@ -238,7 +304,7 @@ export const EmployerDashboard = ({ payroll }: EmployerDashboardProps) => {
               <div key={addr} className="flex items-center justify-between py-3 px-4 bg-gray-50 border border-gray-200">
                 <div className="flex items-center gap-3">
                   <span className="text-gray-400 text-sm">#{i + 1}</span>
-                  <span className="font-mono text-sm">{addr}</span>
+                  <span className="font-mono text-sm text-gray-900">{addr}</span>
                 </div>
                 <span className="text-xs bg-green-100 text-green-700 px-2 py-1">Active</span>
               </div>
@@ -249,7 +315,7 @@ export const EmployerDashboard = ({ payroll }: EmployerDashboardProps) => {
 
       {/* Execute Payroll */}
       <div className="bg-white border border-gray-200 p-6">
-        <h3 className="text-lg font-bold mb-2">Execute Payroll</h3>
+        <h3 className="text-lg font-bold mb-2 text-gray-900">Execute Payroll</h3>
         <p className="text-gray-600 text-sm mb-4">
           This will transfer encrypted salary amounts to all active employees.
           Ensure you have minted enough cUSDT and approved the payroll contract.
@@ -265,6 +331,85 @@ export const EmployerDashboard = ({ payroll }: EmployerDashboardProps) => {
           <p className="text-red-500 text-sm mt-2">You must approve the payroll contract first.</p>
         )}
       </div>
+
+      {/* Reimbursement Approvals */}
+      <div className="bg-white border border-gray-200 p-6">
+        <h3 className="text-lg font-bold mb-2 text-gray-900">Reimbursement Approvals</h3>
+        <p className="text-gray-500 text-sm mb-4">
+          Review and approve or reject employee reimbursement requests.
+        </p>
+
+        {reimbMessage && (
+          <div className="bg-gray-100 border border-gray-300 px-3 py-2 text-sm text-gray-700 mb-4">{reimbMessage}</div>
+        )}
+
+        <button className="text-blue-600 text-sm underline mb-3" onClick={fetchReimbursements}>Refresh</button>
+        {pendingReimbursements.length === 0 ? (
+          <p className="text-gray-500 text-sm">No pending reimbursement requests.</p>
+        ) : (
+          <div className="space-y-2">
+            {pendingReimbursements.map((r, i) => (
+              <div key={i} className="py-3 px-4 bg-gray-50 border border-gray-200">
+                <div className="flex items-center justify-between mb-2">
+                  <div>
+                    <span className="font-medium text-gray-900 text-sm">{r.description}</span>
+                    <span className="ml-2 text-gray-500 text-xs">{r.timestamp}</span>
+                  </div>
+                  <span className="text-xs bg-yellow-100 text-yellow-700 px-2 py-0.5">Pending</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="font-mono text-xs text-gray-600">
+                    {r.employee.slice(0, 10)}...{r.employee.slice(-6)}
+                  </span>
+                  <div className="flex gap-2">
+                    <button
+                      className="bg-green-600 text-white px-4 py-1 text-sm font-medium hover:bg-green-700 disabled:opacity-50"
+                      disabled={reimbLoading}
+                      onClick={() => handleReimbursement(r.employee, r.index, true)}
+                    >
+                      Approve
+                    </button>
+                    <button
+                      className="bg-red-600 text-white px-4 py-1 text-sm font-medium hover:bg-red-700 disabled:opacity-50"
+                      disabled={reimbLoading}
+                      onClick={() => handleReimbursement(r.employee, r.index, false)}
+                    >
+                      Reject
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Role Management */}
+      {accessControlAddress && accessControlAbi && (
+        <RoleManagement
+          payroll={payroll}
+          accessControlAddress={accessControlAddress}
+          accessControlAbi={accessControlAbi}
+        />
+      )}
+
+      {/* Payroll Scheduler */}
+      {schedulerAddress && schedulerAbi && (
+        <PayrollSchedulerPanel
+          payroll={payroll}
+          schedulerAddress={schedulerAddress}
+          schedulerAbi={schedulerAbi}
+        />
+      )}
+
+      {/* Analytics Dashboard */}
+      {analyticsAddress && analyticsAbi && (
+        <AnalyticsDashboard
+          payroll={payroll}
+          analyticsAddress={analyticsAddress}
+          analyticsAbi={analyticsAbi}
+        />
+      )}
     </div>
   );
 };
