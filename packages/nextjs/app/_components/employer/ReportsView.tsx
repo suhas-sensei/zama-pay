@@ -67,22 +67,32 @@ export function ReportsView({
     } catch {}
   }, [accessControlAddress, accessControlAbi, payroll.ethersReadonlyProvider]);
 
-  // Fetch reimbursements
+  // Fetch reimbursements using actual contract functions
   const fetchReimbursements = useCallback(async () => {
     if (!payroll.payrollAddress || !payroll.ethersReadonlyProvider) return;
     try {
       const contract = new ethers.Contract(
         payroll.payrollAddress,
-        ["function getPendingReimbursements() view returns (tuple(address employee, uint256 index, string description, uint256 timestamp)[])"],
+        [
+          "function getReimbursementCount() view returns (uint256)",
+          "function getReimbursement(uint256) view returns (address employee, string description, uint256 timestamp, bool approved, bool processed)",
+        ],
         payroll.ethersReadonlyProvider
       );
-      const pending = await contract.getPendingReimbursements();
-      setPendingReimbursements(pending.map((p: any) => ({
-        employee: p.employee ?? p[0],
-        index: Number(p.index ?? p[1]),
-        description: p.description ?? p[2],
-        timestamp: new Date(Number(p.timestamp ?? p[3]) * 1000).toLocaleString(),
-      })));
+      const count = await contract.getReimbursementCount();
+      const pending: any[] = [];
+      for (let i = 0; i < Math.min(Number(count), 50); i++) {
+        const req = await contract.getReimbursement(i);
+        if (!req.processed && !req.approved) {
+          pending.push({
+            employee: req.employee,
+            index: i,
+            description: req.description,
+            timestamp: new Date(Number(req.timestamp) * 1000).toLocaleString(),
+          });
+        }
+      }
+      setPendingReimbursements(pending);
     } catch {}
   }, [payroll.payrollAddress, payroll.ethersReadonlyProvider]);
 
@@ -92,23 +102,24 @@ export function ReportsView({
     fetchReimbursements();
   }, [fetchAnalytics, fetchRoles, fetchReimbursements]);
 
-  const handleReimbursement = async (employee: string, index: number, approve: boolean) => {
+  const handleReimbursement = async (requestId: number, approve: boolean) => {
     if (!payroll.ethersSigner || !payroll.payrollAddress) return;
     setReimbMessage(approve ? "Approving..." : "Rejecting...");
     try {
       const contract = new ethers.Contract(
         payroll.payrollAddress,
         [
-          "function approveReimbursement(address,uint256) external",
-          "function rejectReimbursement(address,uint256) external",
+          "function approveReimbursement(uint256) external",
         ],
         payroll.ethersSigner
       );
-      const tx = approve
-        ? await contract.approveReimbursement(employee, index)
-        : await contract.rejectReimbursement(employee, index);
-      await tx.wait();
-      setReimbMessage(approve ? "Approved!" : "Rejected.");
+      if (approve) {
+        const tx = await contract.approveReimbursement(requestId);
+        await tx.wait();
+        setReimbMessage("Approved!");
+      } else {
+        setReimbMessage("Reject not supported — only approve or ignore.");
+      }
       fetchReimbursements();
     } catch (e) {
       setReimbMessage(`Failed: ${e instanceof Error ? e.message : String(e)}`);
@@ -259,13 +270,13 @@ export function ReportsView({
                 <div className="flex gap-2">
                   <button
                     className="bg-green-600 text-white px-3 py-1.5 rounded-lg text-xs font-medium hover:bg-green-700"
-                    onClick={() => handleReimbursement(r.employee, r.index, true)}
+                    onClick={() => handleReimbursement(r.index, true)}
                   >
                     Approve
                   </button>
                   <button
                     className="bg-red-500 text-white px-3 py-1.5 rounded-lg text-xs font-medium hover:bg-red-600"
-                    onClick={() => handleReimbursement(r.employee, r.index, false)}
+                    onClick={() => handleReimbursement(r.index, false)}
                   >
                     Reject
                   </button>

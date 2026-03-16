@@ -2,14 +2,17 @@
 
 import { useState, useCallback, useEffect } from "react";
 import { ethers } from "ethers";
+import { useFHEEncryption, toHex } from "@fhevm-sdk";
+import { notification } from "~~/utils/helper/notification";
 
 interface ReimbursementsViewProps {
   payroll: any;
   payrollAddress?: string;
   payrollAbi?: any[];
+  fhevmInstance?: any;
 }
 
-export function ReimbursementsView({ payroll, payrollAddress, payrollAbi }: ReimbursementsViewProps) {
+export function ReimbursementsView({ payroll, payrollAddress, payrollAbi, fhevmInstance }: ReimbursementsViewProps) {
   const [description, setDescription] = useState("");
   const [amount, setAmount] = useState("");
   const [reimbursements, setReimbursements] = useState<any[]>([]);
@@ -38,21 +41,38 @@ export function ReimbursementsView({ payroll, payrollAddress, payrollAbi }: Reim
 
   useEffect(() => { fetchReimbursements(); }, [fetchReimbursements]);
 
+  const { encryptWith } = useFHEEncryption({
+    instance: fhevmInstance,
+    ethersSigner: payroll.ethersSigner as any,
+    contractAddress: payrollAddress as `0x${string}` | undefined,
+  });
+
   const submit = async () => {
-    if (!payrollAddress || !payrollAbi || !description || !amount || !payroll.ethersSigner) return;
+    if (!payrollAddress || !payrollAbi || !description || !amount || !fhevmInstance) return;
     setIsSubmitting(true);
-    setMessage("Submitting...");
+    setMessage("");
     try {
-      const contract = new ethers.Contract(payrollAddress, payrollAbi, payroll.ethersSigner);
       const amountUnits = Math.round(parseFloat(amount) * 1_000_000);
-      const tx = await contract.requestReimbursement(description, amountUnits);
+
+      // Encrypt the amount using FHE
+      const enc = await encryptWith(builder => {
+        builder.add64(amountUnits);
+      });
+      if (!enc) {
+        notification.error("Failed to encrypt amount");
+        return;
+      }
+
+      const contract = new ethers.Contract(payrollAddress, payrollAbi, payroll.ethersSigner);
+      // Contract signature: requestReimbursement(externalEuint64, bytes inputProof, string description)
+      const tx = await contract.requestReimbursement(toHex(enc.handles[0]), toHex(enc.inputProof), description);
       await tx.wait();
-      setMessage("Request submitted!");
+      notification.success("Reimbursement request submitted!");
       setDescription("");
       setAmount("");
       fetchReimbursements();
     } catch (e) {
-      setMessage(`Failed: ${e instanceof Error ? e.message : String(e)}`);
+      notification.error(`Failed: ${e instanceof Error ? e.message : String(e)}`);
     } finally {
       setIsSubmitting(false);
     }

@@ -105,14 +105,8 @@ export function EmployeesView({ payroll, fhevmInstance, initialMockChains, acces
     });
   }, [salaryHandlesResult.data, salaryDecrypt.results, activeMap, payroll.employeeAddresses]);
 
-  const getRoleContract = async () => {
-    if (!accessControlAddress || !accessControlAbi) return null;
-    if (payroll.chainId === 31337) {
-      const provider = new ethers.JsonRpcProvider("http://localhost:8545");
-      const signer = await provider.getSigner(payroll.accounts?.[0]);
-      return new ethers.Contract(accessControlAddress, accessControlAbi, signer);
-    }
-    if (!payroll.ethersSigner) return null;
+  const getRoleContract = () => {
+    if (!accessControlAddress || !accessControlAbi || !payroll.ethersSigner) return null;
     return new ethers.Contract(accessControlAddress, accessControlAbi, payroll.ethersSigner);
   };
 
@@ -120,7 +114,7 @@ export function EmployeesView({ payroll, fhevmInstance, initialMockChains, acces
     if (!roleAddress) return;
     setRoleLoading(true);
     try {
-      const contract = await getRoleContract();
+      const contract = getRoleContract();
       if (!contract) return;
       const tx = await contract.grantRole(ethers.getAddress(roleAddress), selectedRole);
       await tx.wait();
@@ -138,7 +132,7 @@ export function EmployeesView({ payroll, fhevmInstance, initialMockChains, acces
     if (!roleAddress) return;
     setRoleLoading(true);
     try {
-      const contract = await getRoleContract();
+      const contract = getRoleContract();
       if (!contract) return;
       const tx = await contract.revokeRole(ethers.getAddress(roleAddress));
       await tx.wait();

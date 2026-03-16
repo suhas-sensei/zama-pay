@@ -2,13 +2,12 @@
 
 import { useState } from "react";
 import { ethers } from "ethers";
+import { notification } from "~~/utils/helper/notification";
 
 interface AttestationsViewProps {
   payroll: any;
   attestationAddress?: string;
   attestationAbi?: any[];
-  payrollAddress?: string;
-  payrollAbi?: any[];
 }
 
 export function AttestationsView({
@@ -24,26 +23,34 @@ export function AttestationsView({
 
   const createAttestation = async () => {
     if (!attestationAddress || !attestationAbi || !payroll.ethersSigner) return;
+    if (!payroll.accounts?.[0] || !payroll.mySalaryHandle || payroll.mySalaryHandle === ethers.ZeroHash) {
+      notification.error("No salary handle found. Are you registered as an employee?");
+      return;
+    }
     setMessage("Creating attestation...");
     try {
       const contract = new ethers.Contract(attestationAddress, attestationAbi, payroll.ethersSigner);
+      const employeeAddr = payroll.accounts[0];
+      const salaryHandle = payroll.mySalaryHandle;
       const thresholdUnits = Math.round(parseFloat(threshold) * 1_000_000);
       let tx;
       if (attestationType === 0) {
-        tx = await contract.attestSalaryAbove(thresholdUnits, verifierAddress);
+        tx = await contract.attestSalaryAbove(employeeAddr, salaryHandle, thresholdUnits, verifierAddress);
       } else if (attestationType === 1) {
-        tx = await contract.attestSalaryBelow(thresholdUnits, verifierAddress);
+        tx = await contract.attestSalaryBelow(employeeAddr, salaryHandle, thresholdUnits, verifierAddress);
       } else {
         const upperUnits = Math.round(parseFloat(upperBound) * 1_000_000);
-        tx = await contract.attestSalaryInRange(thresholdUnits, upperUnits, verifierAddress);
+        tx = await contract.attestSalaryInRange(employeeAddr, salaryHandle, thresholdUnits, upperUnits, verifierAddress);
       }
       await tx.wait();
-      setMessage("Attestation created successfully!");
+      notification.success("Attestation created successfully!");
+      setMessage("");
       setThreshold("");
       setUpperBound("");
       setVerifierAddress("");
     } catch (e) {
-      setMessage(`Failed: ${e instanceof Error ? e.message : String(e)}`);
+      notification.error(`Failed: ${e instanceof Error ? e.message : String(e)}`);
+      setMessage("");
     }
   };
 

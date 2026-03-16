@@ -307,6 +307,7 @@ export default function Home() {
               payroll={payroll}
               contractInfo={contractInfo}
               payrollContractInfo={payrollContractInfo}
+              fhevmInstance={fhevmInstance}
             />
           )}
         </div>
@@ -388,11 +389,13 @@ function EmployeeContent({
   payroll,
   contractInfo,
   payrollContractInfo,
+  fhevmInstance,
 }: {
   view: EmployeeView;
   payroll: any;
   contractInfo: any;
   payrollContractInfo: any;
+  fhevmInstance?: any;
 }) {
   if (!payroll.isEmployeeUser) {
     return (
@@ -432,6 +435,7 @@ function EmployeeContent({
         payroll={payroll}
         payrollAddress={payrollContractInfo.address}
         payrollAbi={payrollContractInfo.abi}
+        fhevmInstance={fhevmInstance}
       />
     );
     case "settings": return <EmployeeSettingsView payroll={payroll} />;

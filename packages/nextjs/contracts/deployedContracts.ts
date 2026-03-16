@@ -2790,6 +2790,2791 @@ const deployedContracts = {
       deployedOnBlock: 6,
     },
   },
+  11155111: {
+    ConfidentialPayroll: {
+      address: "0xb974F8309eCAC143287f566A8a1a7cD0f37a67Af",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_paymentToken",
+              type: "address",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
+        {
+          inputs: [],
+          name: "EmployeeAlreadyExists",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "EmployeeNotFound",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "NoActiveEmployees",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "OnlyEmployee",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "OnlyEmployer",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "OnlyEmployerOrFinance",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "OnlyEmployerOrHR",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "OnlyEmployerOrScheduler",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "PaymentTokenNotSet",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "ReimbursementAlreadyProcessed",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "ReimbursementNotFound",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "handle",
+              type: "bytes32",
+            },
+            {
+              internalType: "address",
+              name: "sender",
+              type: "address",
+            },
+          ],
+          name: "SenderNotAllowedToUseHandle",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "ZamaProtocolUnsupported",
+          type: "error",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "string",
+              name: "contractType",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "address",
+              name: "contractAddress",
+              type: "address",
+            },
+          ],
+          name: "ContractLinked",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "employee",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "department",
+              type: "string",
+            },
+          ],
+          name: "EmployeeAdded",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "employee",
+              type: "address",
+            },
+          ],
+          name: "EmployeeRemoved",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "token",
+              type: "address",
+            },
+          ],
+          name: "PaymentTokenUpdated",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "uint256",
+              name: "payrollId",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "employeeCount",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "timestamp",
+              type: "uint256",
+            },
+          ],
+          name: "PayrollExecuted",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "uint256",
+              name: "requestId",
+              type: "uint256",
+            },
+          ],
+          name: "ReimbursementApproved",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "uint256",
+              name: "requestId",
+              type: "uint256",
+            },
+          ],
+          name: "ReimbursementProcessed",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "uint256",
+              name: "requestId",
+              type: "uint256",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "employee",
+              type: "address",
+            },
+          ],
+          name: "ReimbursementRequested",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "employee",
+              type: "address",
+            },
+          ],
+          name: "SalaryUpdated",
+          type: "event",
+        },
+        {
+          inputs: [],
+          name: "accessControl",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_employee",
+              type: "address",
+            },
+            {
+              internalType: "externalEuint64",
+              name: "_encryptedSalary",
+              type: "bytes32",
+            },
+            {
+              internalType: "bytes",
+              name: "_inputProof",
+              type: "bytes",
+            },
+          ],
+          name: "addEmployee",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_employee",
+              type: "address",
+            },
+            {
+              internalType: "externalEuint64",
+              name: "_encryptedSalary",
+              type: "bytes32",
+            },
+            {
+              internalType: "bytes",
+              name: "_inputProof",
+              type: "bytes",
+            },
+            {
+              internalType: "string",
+              name: "_department",
+              type: "string",
+            },
+          ],
+          name: "addEmployeeWithDepartment",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_requestId",
+              type: "uint256",
+            },
+          ],
+          name: "approveReimbursement",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "attestationContract",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "confidentialProtocolId",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "employeeList",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "employer",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "executePayroll",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getAllEmployees",
+          outputs: [
+            {
+              internalType: "address[]",
+              name: "",
+              type: "address[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "index",
+              type: "uint256",
+            },
+          ],
+          name: "getEmployeeAt",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getEmployeeCount",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_employee",
+              type: "address",
+            },
+          ],
+          name: "getEmployeeInfo",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "active",
+              type: "bool",
+            },
+            {
+              internalType: "string",
+              name: "department",
+              type: "string",
+            },
+            {
+              internalType: "uint256",
+              name: "addedAt",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_employee",
+              type: "address",
+            },
+          ],
+          name: "getEmployeeReimbursements",
+          outputs: [
+            {
+              internalType: "uint256[]",
+              name: "",
+              type: "uint256[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_employee",
+              type: "address",
+            },
+          ],
+          name: "getEmployeeSalary",
+          outputs: [
+            {
+              internalType: "euint64",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_employee",
+              type: "address",
+            },
+          ],
+          name: "getPaymentHistoryCount",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_employee",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "index",
+              type: "uint256",
+            },
+          ],
+          name: "getPaymentRecord",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "timestamp",
+              type: "uint256",
+            },
+            {
+              internalType: "euint64",
+              name: "amount",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_id",
+              type: "uint256",
+            },
+          ],
+          name: "getReimbursement",
+          outputs: [
+            {
+              internalType: "address",
+              name: "employee",
+              type: "address",
+            },
+            {
+              internalType: "string",
+              name: "description",
+              type: "string",
+            },
+            {
+              internalType: "uint256",
+              name: "timestamp",
+              type: "uint256",
+            },
+            {
+              internalType: "bool",
+              name: "approved",
+              type: "bool",
+            },
+            {
+              internalType: "bool",
+              name: "processed",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getReimbursementCount",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getTotalPayrollBudget",
+          outputs: [
+            {
+              internalType: "euint64",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_address",
+              type: "address",
+            },
+          ],
+          name: "isEmployee",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "lastPayrollTimestamp",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "paymentToken",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "payrollCount",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_requestId",
+              type: "uint256",
+            },
+          ],
+          name: "processReimbursement",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "reimbursements",
+          outputs: [
+            {
+              internalType: "address",
+              name: "employee",
+              type: "address",
+            },
+            {
+              internalType: "euint64",
+              name: "amount",
+              type: "bytes32",
+            },
+            {
+              internalType: "string",
+              name: "description",
+              type: "string",
+            },
+            {
+              internalType: "uint256",
+              name: "timestamp",
+              type: "uint256",
+            },
+            {
+              internalType: "bool",
+              name: "approved",
+              type: "bool",
+            },
+            {
+              internalType: "bool",
+              name: "processed",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_employee",
+              type: "address",
+            },
+          ],
+          name: "removeEmployee",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "externalEuint64",
+              name: "_encryptedAmount",
+              type: "bytes32",
+            },
+            {
+              internalType: "bytes",
+              name: "_inputProof",
+              type: "bytes",
+            },
+            {
+              internalType: "string",
+              name: "_description",
+              type: "string",
+            },
+          ],
+          name: "requestReimbursement",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "scheduler",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_accessControl",
+              type: "address",
+            },
+          ],
+          name: "setAccessControl",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_attestation",
+              type: "address",
+            },
+          ],
+          name: "setAttestationContract",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_newToken",
+              type: "address",
+            },
+          ],
+          name: "setPaymentToken",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_scheduler",
+              type: "address",
+            },
+          ],
+          name: "setScheduler",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "totalPayrollBudget",
+          outputs: [
+            {
+              internalType: "euint64",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_newEmployer",
+              type: "address",
+            },
+          ],
+          name: "transferEmployer",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_employee",
+              type: "address",
+            },
+            {
+              internalType: "externalEuint64",
+              name: "_newEncryptedSalary",
+              type: "bytes32",
+            },
+            {
+              internalType: "bytes",
+              name: "_inputProof",
+              type: "bytes",
+            },
+          ],
+          name: "updateSalary",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {},
+      deployedOnBlock: 10459684,
+    },
+    ConfidentialPayrollToken: {
+      address: "0xC293AE78C5a2DE85B3aaE5919cc328FdA899e1e9",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "string",
+              name: "_name",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "_symbol",
+              type: "string",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
+        {
+          inputs: [],
+          name: "NotOperator",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "OnlyOwner",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "handle",
+              type: "bytes32",
+            },
+            {
+              internalType: "address",
+              name: "sender",
+              type: "address",
+            },
+          ],
+          name: "SenderNotAllowedToUseHandle",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "ZamaProtocolUnsupported",
+          type: "error",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "to",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+          ],
+          name: "Mint",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "owner",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "operator",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "bool",
+              name: "approved",
+              type: "bool",
+            },
+          ],
+          name: "OperatorSet",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "from",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "to",
+              type: "address",
+            },
+          ],
+          name: "Transfer",
+          type: "event",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "balanceOf",
+          outputs: [
+            {
+              internalType: "euint64",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "confidentialProtocolId",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "decimals",
+          outputs: [
+            {
+              internalType: "uint8",
+              name: "",
+              type: "uint8",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_owner",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "operator",
+              type: "address",
+            },
+          ],
+          name: "isOperator",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "to",
+              type: "address",
+            },
+            {
+              internalType: "uint64",
+              name: "amount",
+              type: "uint64",
+            },
+          ],
+          name: "mint",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "name",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "owner",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "operator",
+              type: "address",
+            },
+            {
+              internalType: "bool",
+              name: "approved",
+              type: "bool",
+            },
+          ],
+          name: "setOperator",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "symbol",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "totalSupply",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "to",
+              type: "address",
+            },
+            {
+              internalType: "externalEuint64",
+              name: "encryptedAmount",
+              type: "bytes32",
+            },
+            {
+              internalType: "bytes",
+              name: "inputProof",
+              type: "bytes",
+            },
+          ],
+          name: "transfer",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "from",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "to",
+              type: "address",
+            },
+            {
+              internalType: "euint64",
+              name: "amount",
+              type: "bytes32",
+            },
+          ],
+          name: "transferFrom",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_newOwner",
+              type: "address",
+            },
+          ],
+          name: "transferOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {},
+      deployedOnBlock: 10459683,
+    },
+    PayrollAccessControl: {
+      address: "0x36a9a89d2f565673A642a0f63AC3A6D2358663b7",
+      abi: [
+        {
+          inputs: [],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
+        {
+          inputs: [],
+          name: "CannotRevokeOwner",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "InvalidAddress",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "OnlyOwner",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "enum PayrollAccessControl.Role",
+              name: "required",
+              type: "uint8",
+            },
+          ],
+          name: "OnlyOwnerOrRole",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "enum PayrollAccessControl.Role",
+              name: "required",
+              type: "uint8",
+            },
+          ],
+          name: "OnlyRole",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "RoleAlreadyAssigned",
+          type: "error",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "previousOwner",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "newOwner",
+              type: "address",
+            },
+          ],
+          name: "OwnerTransferred",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "enum PayrollAccessControl.Role",
+              name: "role",
+              type: "uint8",
+            },
+          ],
+          name: "RoleGranted",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "enum PayrollAccessControl.Role",
+              name: "previousRole",
+              type: "uint8",
+            },
+          ],
+          name: "RoleRevoked",
+          type: "event",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_caller",
+              type: "address",
+            },
+          ],
+          name: "canAudit",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_caller",
+              type: "address",
+            },
+          ],
+          name: "canManageEmployees",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_caller",
+              type: "address",
+            },
+          ],
+          name: "canManageFinances",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getAllRoleHolders",
+          outputs: [
+            {
+              internalType: "address[]",
+              name: "accounts",
+              type: "address[]",
+            },
+            {
+              internalType: "enum PayrollAccessControl.Role[]",
+              name: "assignedRoles",
+              type: "uint8[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getRoleHolderCount",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_account",
+              type: "address",
+            },
+            {
+              internalType: "enum PayrollAccessControl.Role",
+              name: "_role",
+              type: "uint8",
+            },
+          ],
+          name: "grantRole",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_account",
+              type: "address",
+            },
+            {
+              internalType: "enum PayrollAccessControl.Role",
+              name: "_role",
+              type: "uint8",
+            },
+          ],
+          name: "hasRole",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_account",
+              type: "address",
+            },
+            {
+              internalType: "enum PayrollAccessControl.Role",
+              name: "_role",
+              type: "uint8",
+            },
+          ],
+          name: "isOwnerOrRole",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "owner",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_account",
+              type: "address",
+            },
+          ],
+          name: "revokeRole",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "roleHolders",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          name: "roles",
+          outputs: [
+            {
+              internalType: "enum PayrollAccessControl.Role",
+              name: "",
+              type: "uint8",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_newOwner",
+              type: "address",
+            },
+          ],
+          name: "transferOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {},
+      deployedOnBlock: 10459685,
+    },
+    PayrollAnalytics: {
+      address: "0x35B9a1282e7Ea6eB1320EdFcfc286561f9817F6D",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_payrollContract",
+              type: "address",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
+        {
+          inputs: [],
+          name: "DepartmentAlreadyExists",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "DepartmentNotFound",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "OnlyOwner",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "ZamaProtocolUnsupported",
+          type: "error",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "totalActiveEmployees",
+              type: "uint256",
+            },
+          ],
+          name: "AnalyticsUpdated",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "departmentId",
+              type: "bytes32",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "name",
+              type: "string",
+            },
+          ],
+          name: "DepartmentCreated",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "employee",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "departmentId",
+              type: "bytes32",
+            },
+          ],
+          name: "EmployeeAssignedToDepartment",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "uint256",
+              name: "snapshotId",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "employeeCount",
+              type: "uint256",
+            },
+          ],
+          name: "PayrollSnapshotRecorded",
+          type: "event",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_employee",
+              type: "address",
+            },
+            {
+              internalType: "bytes32",
+              name: "_departmentId",
+              type: "bytes32",
+            },
+            {
+              internalType: "euint64",
+              name: "_encryptedSalary",
+              type: "bytes32",
+            },
+          ],
+          name: "assignEmployeeToDepartment",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "confidentialProtocolId",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "string",
+              name: "_name",
+              type: "string",
+            },
+          ],
+          name: "createDepartment",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "departmentList",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          name: "departments",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "headcount",
+              type: "uint256",
+            },
+            {
+              internalType: "euint64",
+              name: "totalSalary",
+              type: "bytes32",
+            },
+            {
+              internalType: "bool",
+              name: "exists",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          name: "employeeDepartment",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getAllDepartments",
+          outputs: [
+            {
+              internalType: "bytes32[]",
+              name: "",
+              type: "bytes32[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getDepartmentCount",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "_departmentId",
+              type: "bytes32",
+            },
+          ],
+          name: "getDepartmentStats",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "headcount",
+              type: "uint256",
+            },
+            {
+              internalType: "euint64",
+              name: "totalSalary",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_index",
+              type: "uint256",
+            },
+          ],
+          name: "getSnapshot",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "timestamp",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "employeeCount",
+              type: "uint256",
+            },
+            {
+              internalType: "euint64",
+              name: "totalPaid",
+              type: "bytes32",
+            },
+            {
+              internalType: "uint256",
+              name: "payrollId",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getSnapshotCount",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getTotalSalaryPool",
+          outputs: [
+            {
+              internalType: "euint64",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "owner",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "payrollContract",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_payrollId",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "_employeeCount",
+              type: "uint256",
+            },
+            {
+              internalType: "euint64",
+              name: "_totalPaid",
+              type: "bytes32",
+            },
+          ],
+          name: "recordPayrollSnapshot",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "snapshots",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "timestamp",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "employeeCount",
+              type: "uint256",
+            },
+            {
+              internalType: "euint64",
+              name: "totalPaid",
+              type: "bytes32",
+            },
+            {
+              internalType: "uint256",
+              name: "payrollId",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "totalActiveEmployees",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "totalSalaryPool",
+          outputs: [
+            {
+              internalType: "euint64",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_newOwner",
+              type: "address",
+            },
+          ],
+          name: "transferOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {},
+      deployedOnBlock: 10459688,
+    },
+    PayrollScheduler: {
+      address: "0x5a22d83e454f30ec63e47F153bc55abd1BBa5683",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_payrollContract",
+              type: "address",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
+        {
+          inputs: [],
+          name: "InvalidPayrollContract",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "OnlyOwner",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "ScheduleAlreadyActive",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "ScheduleNotActive",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "TooEarlyForPayroll",
+          type: "error",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "executionNumber",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "timestamp",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "nextPayDate",
+              type: "uint256",
+            },
+          ],
+          name: "PayrollTriggered",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "enum PayrollScheduler.PayFrequency",
+              name: "frequency",
+              type: "uint8",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "firstPayDate",
+              type: "uint256",
+            },
+          ],
+          name: "ScheduleCreated",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [],
+          name: "SchedulePaused",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [],
+          name: "ScheduleResumed",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "enum PayrollScheduler.PayFrequency",
+              name: "frequency",
+              type: "uint8",
+            },
+          ],
+          name: "ScheduleUpdated",
+          type: "event",
+        },
+        {
+          inputs: [],
+          name: "canExecutePayroll",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "canExec",
+              type: "bool",
+            },
+            {
+              internalType: "string",
+              name: "reason",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes",
+              name: "",
+              type: "bytes",
+            },
+          ],
+          name: "checkUpkeep",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "upkeepNeeded",
+              type: "bool",
+            },
+            {
+              internalType: "bytes",
+              name: "performData",
+              type: "bytes",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "enum PayrollScheduler.PayFrequency",
+              name: "_frequency",
+              type: "uint8",
+            },
+            {
+              internalType: "uint256",
+              name: "_firstPayDate",
+              type: "uint256",
+            },
+          ],
+          name: "createSchedule",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "enum PayrollScheduler.PayFrequency",
+              name: "",
+              type: "uint8",
+            },
+          ],
+          name: "frequencyDuration",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getScheduleInfo",
+          outputs: [
+            {
+              internalType: "enum PayrollScheduler.PayFrequency",
+              name: "frequency",
+              type: "uint8",
+            },
+            {
+              internalType: "uint256",
+              name: "lastExecuted",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "nextPayDate",
+              type: "uint256",
+            },
+            {
+              internalType: "bool",
+              name: "active",
+              type: "bool",
+            },
+            {
+              internalType: "uint256",
+              name: "totalExecutions",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "owner",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "pauseSchedule",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "payrollContract",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes",
+              name: "",
+              type: "bytes",
+            },
+          ],
+          name: "performUpkeep",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "resumeSchedule",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "schedule",
+          outputs: [
+            {
+              internalType: "enum PayrollScheduler.PayFrequency",
+              name: "frequency",
+              type: "uint8",
+            },
+            {
+              internalType: "uint256",
+              name: "lastExecuted",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "nextPayDate",
+              type: "uint256",
+            },
+            {
+              internalType: "bool",
+              name: "active",
+              type: "bool",
+            },
+            {
+              internalType: "uint256",
+              name: "totalExecutions",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_payrollContract",
+              type: "address",
+            },
+          ],
+          name: "setPayrollContract",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "timeUntilNextPayroll",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_newOwner",
+              type: "address",
+            },
+          ],
+          name: "transferOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "triggerPayroll",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "enum PayrollScheduler.PayFrequency",
+              name: "_frequency",
+              type: "uint8",
+            },
+          ],
+          name: "updateFrequency",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {},
+      deployedOnBlock: 10459687,
+    },
+    SalaryAttestation: {
+      address: "0xFF93aA11f96Db1df97eAC1184040dfa0A4D7479d",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_payrollContract",
+              type: "address",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
+        {
+          inputs: [],
+          name: "AttestationNotFound",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "InvalidThreshold",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "OnlyEmployee",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "OnlyPayrollContract",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "ZamaProtocolUnsupported",
+          type: "error",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "uint256",
+              name: "attestationId",
+              type: "uint256",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "employee",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "verifier",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "enum SalaryAttestation.AttestationType",
+              name: "attestationType",
+              type: "uint8",
+            },
+          ],
+          name: "AttestationCreated",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "uint256",
+              name: "attestationId",
+              type: "uint256",
+            },
+          ],
+          name: "AttestationRevoked",
+          type: "event",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_employee",
+              type: "address",
+            },
+            {
+              internalType: "euint64",
+              name: "_encryptedSalary",
+              type: "bytes32",
+            },
+            {
+              internalType: "uint64",
+              name: "_threshold",
+              type: "uint64",
+            },
+            {
+              internalType: "address",
+              name: "_verifier",
+              type: "address",
+            },
+          ],
+          name: "attestSalaryAbove",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_employee",
+              type: "address",
+            },
+            {
+              internalType: "euint64",
+              name: "_encryptedSalary",
+              type: "bytes32",
+            },
+            {
+              internalType: "uint64",
+              name: "_threshold",
+              type: "uint64",
+            },
+            {
+              internalType: "address",
+              name: "_verifier",
+              type: "address",
+            },
+          ],
+          name: "attestSalaryBelow",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_employee",
+              type: "address",
+            },
+            {
+              internalType: "euint64",
+              name: "_encryptedSalary",
+              type: "bytes32",
+            },
+            {
+              internalType: "uint64",
+              name: "_minThreshold",
+              type: "uint64",
+            },
+            {
+              internalType: "uint64",
+              name: "_maxThreshold",
+              type: "uint64",
+            },
+            {
+              internalType: "address",
+              name: "_verifier",
+              type: "address",
+            },
+          ],
+          name: "attestSalaryInRange",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "attestationCount",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "attestations",
+          outputs: [
+            {
+              internalType: "address",
+              name: "employee",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "verifier",
+              type: "address",
+            },
+            {
+              internalType: "enum SalaryAttestation.AttestationType",
+              name: "attestationType",
+              type: "uint8",
+            },
+            {
+              internalType: "uint256",
+              name: "threshold",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "minThreshold",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "maxThreshold",
+              type: "uint256",
+            },
+            {
+              internalType: "ebool",
+              name: "result",
+              type: "bytes32",
+            },
+            {
+              internalType: "uint256",
+              name: "timestamp",
+              type: "uint256",
+            },
+            {
+              internalType: "bool",
+              name: "exists",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "confidentialProtocolId",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_id",
+              type: "uint256",
+            },
+          ],
+          name: "getAttestationInfo",
+          outputs: [
+            {
+              internalType: "address",
+              name: "employee",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "verifier",
+              type: "address",
+            },
+            {
+              internalType: "enum SalaryAttestation.AttestationType",
+              name: "attestationType",
+              type: "uint8",
+            },
+            {
+              internalType: "uint256",
+              name: "threshold",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "minThreshold",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "maxThreshold",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "timestamp",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_id",
+              type: "uint256",
+            },
+          ],
+          name: "getAttestationResult",
+          outputs: [
+            {
+              internalType: "ebool",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_employee",
+              type: "address",
+            },
+          ],
+          name: "getEmployeeAttestationCount",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_employee",
+              type: "address",
+            },
+          ],
+          name: "getEmployeeAttestations",
+          outputs: [
+            {
+              internalType: "uint256[]",
+              name: "",
+              type: "uint256[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "payrollContract",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {},
+      deployedOnBlock: 10459686,
+    },
+  },
 } as const;
 
 export default deployedContracts satisfies GenericContractsDeclaration;

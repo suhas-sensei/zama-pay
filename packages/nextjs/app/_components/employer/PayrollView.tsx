@@ -47,7 +47,8 @@ export function PayrollView({ payroll, schedulerAddress, schedulerAbi }: Payroll
     setScheduleMessage("Creating schedule...");
     try {
       const contract = new ethers.Contract(schedulerAddress, schedulerAbi, payroll.ethersSigner);
-      const tx = await contract.createSchedule(frequency);
+      const firstPayDate = Math.floor(Date.now() / 1000); // now
+      const tx = await contract.createSchedule(frequency, firstPayDate);
       await tx.wait();
       setScheduleMessage("Schedule created!");
       fetchSchedule();
