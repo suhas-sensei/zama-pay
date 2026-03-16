@@ -56,7 +56,7 @@ export default function Home() {
 
   const initialMockChains = useMemo(() => ({ 31337: "http://localhost:8545" }), []);
 
-  const { instance: fhevmInstance, status: fhevmStatus, error: fhevmError } = useFhevm({
+  const { instance: fhevmInstance, status: fhevmStatus } = useFhevm({
     provider,
     chainId,
     initialMockChains,
@@ -426,8 +426,6 @@ function EmployeeContent({
         payroll={payroll}
         attestationAddress={contractInfo.attestation?.address}
         attestationAbi={contractInfo.attestation?.abi}
-        payrollAddress={payrollContractInfo.address}
-        payrollAbi={payrollContractInfo.abi}
       />
     );
     case "reimbursements": return (
