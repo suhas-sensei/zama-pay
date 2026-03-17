@@ -6,7 +6,7 @@ Built with [Zama's fhEVM](https://docs.zama.org/fhevm) and [ERC-7984](https://ei
 
 ## Live Demo
 
-- **Frontend:** https://zama-pay-frontend.vercel.app
+- **Frontend:** https://zama-pay.vercel.app
 - **Contracts (Sepolia):** [View on Etherscan](https://sepolia.etherscan.io/address/0xb974F8309eCAC143287f566A8a1a7cD0f37a67Af)
 
 ## Architecture
